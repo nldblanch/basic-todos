@@ -27,19 +27,10 @@ function AppLayout({ children }: AppLayoutProps) {
                     <ul className="flex gap-4 items-center justify-center">
 
                         {[
-                            "Home",
+                            "Tailwind CSS",
                             "MUI",
-                            "Search",
-                            "Arts",
-                            "Business",
-                            "Health",
-                            "Politics",
-                            "Science",
-                            "Sports",
-                            "Tech",
-                            "World"
                         ].map(topic => <li key={topic}>
-                            <Link to={topic.toLowerCase() === 'home' ? '/' : `/${topic.toLowerCase()}`} className="hover:underline text-sm text-gray-500">
+                            <Link to={topic.toLowerCase() === 'tailwind css' ? '/' : `/${topic.toLowerCase()}`} className="hover:underline text-sm text-gray-500">
                                 {topic}
                             </Link>
                         </li>)}
