@@ -1,15 +1,70 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-sans:
+    "Inter", "Georgia", "Times New Roman", Times, serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --font-serif: "Playfair Display", "Georgia", "Times New Roman", Times, serif;
+
+  --color-banner-yellow: #fbefbf;
 }
 
 html,
 body {
-  @apply bg-white dark:bg-gray-950;
+  @apply bg-white;
 
-  @media (prefers-color-scheme: dark) {
+  /* @media (prefers-color-scheme: dark) {
     color-scheme: dark;
+  } */
+}
+:root {
+  --header-height: 9rem;
+  --app-padding: 1rem;
+  --page-height: calc(100dvh - var(--header-height) - (2 * var(--app-padding)));
+  --banner-yellow: #fbefbf;
+}
+
+.header {
+  height: var(--header-height);
+}
+
+.hero {
+  padding-bottom: 4rem;
+}
+
+.app-container {
+  min-height: 100dvh;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
+  margin: 0 auto;
+  padding: var(--app-padding);
+  @apply container;
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+}
+
+@media screen and (max-width: 1023px) {
+  .hero-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+.card-container {
+  display: grid;
+  grid-template-columns: 3fr 2fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .card-container {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
   }
 }
