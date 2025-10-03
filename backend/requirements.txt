@@ -2,7 +2,7 @@ fastapi
 uvicorn
 sqlalchemy
 alembic
-pydantic
+pydantic[email]
 python-jose
 passlib
 python-multipart
