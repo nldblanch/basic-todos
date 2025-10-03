@@ -63,6 +63,7 @@ class Settings(BaseSettings):
     def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
         """Returns the appropriate database URL based on environment"""
         
+        # Force IPv4 connection to avoid IPv6 issues in Vercel
         return MultiHostUrl.build(
             scheme="postgresql+psycopg2",
             username=self.POSTGRES_USER,
@@ -70,6 +71,7 @@ class Settings(BaseSettings):
             host=self.POSTGRES_SERVER,
             port=self.POSTGRES_PORT,
             path=self.POSTGRES_DB,
+            query={"sslmode": "require", "connect_timeout": "10"}
         )
 
 settings = Settings() # type: ignore
