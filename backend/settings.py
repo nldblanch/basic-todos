@@ -1,6 +1,6 @@
 import os
 from typing import Literal
-from pydantic import PostgresDsn, computed_field, field_validator
+from pydantic import MultiHostUrl, PostgresDsn, computed_field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -52,5 +52,19 @@ class Settings(BaseSettings):
             origins = validated_origins
         
         return [origin.rstrip("/") for origin in origins] + [self.FRONTEND_HOST]
+
+    @computed_field  # type: ignore[prop-decorator]
+    @property
+    def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
+        """Returns the appropriate database URL based on environment"""
+        
+        return MultiHostUrl.build(
+            scheme="postgresql+psycopg2",
+            username=self.POSTGRES_USER,
+            password=self.POSTGRES_PASSWORD,
+            host=self.POSTGRES_SERVER,
+            port=self.POSTGRES_PORT,
+            path=self.POSTGRES_DB,
+        )
 
 settings = Settings() # type: ignore
