@@ -71,7 +71,7 @@ class Settings(BaseSettings):
             host=self.POSTGRES_SERVER,
             port=self.POSTGRES_PORT,
             path=self.POSTGRES_DB,
-            query={"sslmode": "require", "connect_timeout": "10"}
+            query="sslmode=require&connect_timeout=10"
         )
 
 settings = Settings() # type: ignore
