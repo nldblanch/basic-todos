@@ -10,37 +10,9 @@ export function meta({ data }: Route.MetaArgs) {
     ];
 }
 
-// Your code here... Implement the loader function for fetch-then-render
-export async function loader({ params }: Route.LoaderArgs) {
-    // Your code here... Fetch the specific blog post by ID
-    // This could be from a database, API, or static files
-    // Example structure:
-    /*
-    const blogPost = await fetchBlogPostById(params.id);
-    if (!blogPost) {
-      throw new Response("Blog post not found", { status: 404 });
-    }
-    return { blogPost };
-    */
 
-    // For now, return mock data
-    const blogPost: BlogPostDetail = {
-        id: params.id || "1",
-        title: "Your code here... Add blog post title",
-        content: "Your code here... Add the full blog post content here. This is where you'll implement the main content of your blog post with proper formatting, paragraphs, and any rich text content.",
-        publishedAt: "2024-01-01",
-        author: "Your code here... Add author name",
-        tags: ["productivity", "todos", "organization"],
-        readTime: 5,
-        img: "https://sqbolqabkceodcvmafyq.supabase.co/storage/v1/object/public/todos/aditya-vyas-mHdATQY9fIU-unsplash.jpg"
-    };
-
-    return { blogPost };
-}
 
 export default function BlogDetail() {
-    // Your code here... Get the data from the loader
-    // const { blogPost } = useLoaderData<typeof loader>();
 
     // For now, using mock data
     const blogPost: BlogPostDetail = {

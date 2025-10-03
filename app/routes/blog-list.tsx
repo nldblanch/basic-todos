@@ -1,6 +1,5 @@
 import { useBlogPosts } from "~/features/blog/useBlogPosts";
 import type { Route } from "./+types/blog-list";
-import { Link, useLoaderData } from "react-router";
 import { Suspense } from "react";
 import BlogPostCard from "~/features/blog/BlogPostCard";
 
