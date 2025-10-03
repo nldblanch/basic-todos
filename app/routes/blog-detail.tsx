@@ -1,21 +1,12 @@
+import type { BlogPostDetail } from "~/types";
 import type { Route } from "./+types/blog-detail";
 import { Link } from "react-router";
 
-// Your code here... Define the type for a detailed blog post
-interface BlogPostDetail {
-    id: string;
-    title: string;
-    content: string;
-    publishedAt: string;
-    author: string;
-    tags: string[];
-    readTime: number;
-}
 
 export function meta({ data }: Route.MetaArgs) {
     return [
         { title: `${data?.blogPost?.title || "Blog Post"} - Todo App` },
-        { name: "description", content: data?.blogPost?.excerpt || "Read our blog post" },
+        { name: "description", content: data?.blogPost?.content || "Read our blog post" },
     ];
 }
 
@@ -40,7 +31,8 @@ export async function loader({ params }: Route.LoaderArgs) {
         publishedAt: "2024-01-01",
         author: "Your code here... Add author name",
         tags: ["productivity", "todos", "organization"],
-        readTime: 5
+        readTime: 5,
+        img: "https://sqbolqabkceodcvmafyq.supabase.co/storage/v1/object/public/todos/aditya-vyas-mHdATQY9fIU-unsplash.jpg"
     };
 
     return { blogPost };
@@ -58,7 +50,8 @@ export default function BlogDetail() {
         publishedAt: "2024-01-01",
         author: "Your code here... Add author name",
         tags: ["productivity", "todos", "organization"],
-        readTime: 5
+        readTime: 5,
+        img: "https://sqbolqabkceodcvmafyq.supabase.co/storage/v1/object/public/todos/aditya-vyas-mHdATQY9fIU-unsplash.jpg"
     };
 
     return (

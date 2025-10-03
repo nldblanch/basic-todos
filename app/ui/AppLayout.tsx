@@ -1,17 +1,23 @@
-import { Link } from "react-router";
+import { Link, useLocation } from "react-router";
 import Button from "./Button";
+import { useEffect, useState } from "react";
+import { useDivCount } from "~/hooks/useDivCount";
 
 interface AppLayoutProps {
     children: React.ReactNode
 }
 
 function AppLayout({ children }: AppLayoutProps) {
+    // const metrics = useDivCount()
+    // const { divCount, depth } = metrics
     return (
         <div className="app-container">
             <header className="header grid grid-rows-2 grid-cols-3 items-center">
                 <nav className="flex gap-6">
-                    <p>Newsletter</p>
-                    <p>About</p>
+                    <Link to='/'>Home</Link>
+                    <Link to='/blog'>Blog</Link>
+                    {/* <p>Divs: {divCount}</p>
+                    <p>Depth: {depth}</p> */}
                 </nav>
                 <h1 className="text-4xl font-serif font-semibold text-center">News<span className="italic">Today</span></h1>
                 <div className="ml-auto">
@@ -42,6 +48,12 @@ function AppLayout({ children }: AppLayoutProps) {
             <main>
                 {children}
             </main>
+            {/* <footer className="text-center text-sm text-gray-500">
+                <p>Page rendered in {metrics.renderTime}ms</p>
+                <p>Total elements: {metrics.totalElements}</p>
+                <p>Average children per element: {metrics.avgChildren}</p>
+                <p>DOM size: {metrics.domSize}</p>
+            </footer> */}
         </div >
     );
 }

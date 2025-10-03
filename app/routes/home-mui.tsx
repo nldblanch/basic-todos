@@ -9,6 +9,7 @@ import Button from "@mui/material/Button";
 import { usePosts } from "~/hooks/usePosts";
 import { Link as MUILink, Stack, Typography } from "@mui/material";
 import { Link } from "react-router";
+import type { BlogPostDetail } from "~/types";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -17,16 +18,12 @@ export function meta({ }: Route.MetaArgs) {
     ];
 }
 
-interface ArticleCardProps {
-    img: string;
-    title: string;
-    content: string;
-    author: string;
-    tags: string[];
-    readTime: number;
+type ArticleCardProps = {
+    post: BlogPostDetail
 }
 
-const ArticleCard = ({ img, title, content, author, tags }: ArticleCardProps) => {
+const ArticleCard = ({ post }: ArticleCardProps) => {
+    const { img, title, content, author, tags } = post
     const capitalise = (tag: string) => {
         return tag
             .split(' ')
@@ -251,8 +248,8 @@ export default function HomeMUI() {
                 <Box sx={{ flexGrow: 1 }} display="flex" flexDirection="column" gap={4}>
 
                     {rest.map(post => {
-                        const { img, title, content, author, tags, readTime } = post
-                        return <ArticleCard img={img} title={title} content={content} author={author} tags={tags} readTime={readTime} />
+
+                        return <ArticleCard post={post} />
                     })}
                 </Box>
 
