@@ -21,25 +21,6 @@ class Settings(BaseSettings):
             raise ValueError('PROJECT_NAME is required')
         return v
 
-    @field_validator('BACKEND_CORS_ORIGINS', mode='before')
-    def validate_cors_origins(cls, v):
-        if isinstance(v, str):
-            # Split by comma if it's a string
-            origins = [origin.strip() for origin in v.split(",")]
-        elif isinstance(v, list):
-            origins = v
-        else:
-            return []
-        
-        # Ensure all origins have proper protocol
-        validated_origins = []
-        for origin in origins:
-            if origin and not origin.startswith(("http://", "https://")):
-                validated_origins.append(f"https://{origin}")
-            elif origin:
-                validated_origins.append(origin)
-        
-        return validated_origins
 
     model_name: str = "all-mpnet-base-v2"
     debug: bool = False
@@ -52,13 +33,24 @@ class Settings(BaseSettings):
     )
 
 
-    BACKEND_CORS_ORIGINS: list[str] = []
+    BACKEND_CORS_ORIGINS: str = ""
 
     @computed_field  # type: ignore[prop-decorator]
     @property
     def all_cors_origins(self) -> list[str]:
-        return [origin.rstrip("/") for origin in self.BACKEND_CORS_ORIGINS] + [
-            self.FRONTEND_HOST
-        ]
+        origins = []
+        if self.BACKEND_CORS_ORIGINS:
+            # Split by comma and clean up
+            origins = [origin.strip() for origin in self.BACKEND_CORS_ORIGINS.split(",")]
+            # Ensure all origins have proper protocol
+            validated_origins = []
+            for origin in origins:
+                if origin and not origin.startswith(("http://", "https://")):
+                    validated_origins.append(f"https://{origin}")
+                elif origin:
+                    validated_origins.append(origin)
+            origins = validated_origins
+        
+        return [origin.rstrip("/") for origin in origins] + [self.FRONTEND_HOST]
 
 settings = Settings() # type: ignore
