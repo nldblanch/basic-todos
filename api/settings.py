@@ -28,7 +28,6 @@ class Settings(BaseSettings):
             raise ValueError('PROJECT_NAME is required')
         return v
 
-    POSTGRES_PORT: int = 5432
     model_name: str = "all-mpnet-base-v2"
     debug: bool = False
     
