@@ -1,8 +1,8 @@
-import os
-from typing import Literal
-from pydantic import MultiHostUrl, PostgresDsn, computed_field, field_validator
-from pydantic_settings import BaseSettings, SettingsConfigDict
 
+from typing import Literal
+from pydantic import PostgresDsn, computed_field, field_validator
+from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic_core import MultiHostUrl
 
 
 class Settings(BaseSettings):
