@@ -1,8 +1,0 @@
-{
-  "rewrites": [
-    {
-      "source": "/api/(.*)",
-      "destination": "https://flask-backend-url.vercel.app/api/hello"
-    }
-  ]
-}
