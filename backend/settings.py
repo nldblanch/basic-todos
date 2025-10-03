@@ -1,16 +1,9 @@
 import os
-from typing import Annotated, Any, Literal
-from pydantic import AnyUrl, BeforeValidator, PostgresDsn, computed_field, field_validator
+from typing import Literal
+from pydantic import PostgresDsn, computed_field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic_core import MultiHostUrl
 
 
-def parse_cors(v: Any) -> list[str] | str:
-    if isinstance(v, str) and not v.startswith("["):
-        return [i.strip() for i in v.split(",")]
-    elif isinstance(v, list | str):
-        return v
-    raise ValueError(v)
 
 class Settings(BaseSettings):
     # Required
@@ -28,6 +21,26 @@ class Settings(BaseSettings):
             raise ValueError('PROJECT_NAME is required')
         return v
 
+    @field_validator('BACKEND_CORS_ORIGINS', mode='before')
+    def validate_cors_origins(cls, v):
+        if isinstance(v, str):
+            # Split by comma if it's a string
+            origins = [origin.strip() for origin in v.split(",")]
+        elif isinstance(v, list):
+            origins = v
+        else:
+            return []
+        
+        # Ensure all origins have proper protocol
+        validated_origins = []
+        for origin in origins:
+            if origin and not origin.startswith(("http://", "https://")):
+                validated_origins.append(f"https://{origin}")
+            elif origin:
+                validated_origins.append(origin)
+        
+        return validated_origins
+
     model_name: str = "all-mpnet-base-v2"
     debug: bool = False
     
@@ -39,14 +52,12 @@ class Settings(BaseSettings):
     )
 
 
-    BACKEND_CORS_ORIGINS: Annotated[
-        list[AnyUrl] | str, BeforeValidator(parse_cors)
-    ] = []
+    BACKEND_CORS_ORIGINS: list[str] = []
 
     @computed_field  # type: ignore[prop-decorator]
     @property
     def all_cors_origins(self) -> list[str]:
-        return [str(origin).rstrip("/") for origin in self.BACKEND_CORS_ORIGINS] + [
+        return [origin.rstrip("/") for origin in self.BACKEND_CORS_ORIGINS] + [
             self.FRONTEND_HOST
         ]
 
