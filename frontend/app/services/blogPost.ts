@@ -6,12 +6,12 @@ const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 export const getBlogPosts = async (): Promise<BlogPostList[]> => {
     try {
         const response = await fetch(`${apiUrl}/blog-posts/`);
-        console.log(response, ' <<<< response');
         if (!response.ok) {
             throw new Error('Failed to fetch blog posts');
         }
-        console.log(response.json(), ' <<<< response.json()');
-        return response.json();
+        const res = await response.json();
+        console.log(res, ' <<<< res');
+        return res;
     } catch (error) {
         console.error('Error fetching blog posts:', error);
         throw error;
