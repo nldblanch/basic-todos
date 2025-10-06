@@ -1,19 +1,24 @@
 
 from typing import Literal
-from pydantic import PostgresDsn, computed_field, field_validator
+from pydantic import computed_field, field_validator
 from pydantic_settings import BaseSettings, SettingsConfigDict
-from pydantic_core import MultiHostUrl
+import os
+from dotenv import load_dotenv
 
+# Load environment variables from .env file
+load_dotenv(override=True)
 
 class Settings(BaseSettings):
     # Required
     DATABASE_URL: str
     PROJECT_NAME: str
-    POSTGRES_USER: str
-    POSTGRES_PASSWORD: str
-    POSTGRES_SERVER: str
+
+    POSTGRES_SERVER: str = os.getenv("POSTGRES_SERVER", "localhost")
+    POSTGRES_USER: str = os.getenv("POSTGRES_USER", "postgres")
+    POSTGRES_PASSWORD: str = os.getenv("POSTGRES_PASSWORD", "postgres")
+    POSTGRES_DB: str = os.getenv("POSTGRES_DB", "app")
     POSTGRES_PORT: int
-    POSTGRES_DB: str
+    
     FRONTEND_HOST: str = "http://localhost:5173"
     ENVIRONMENT: Literal["local", "staging", "production"] = "local"
 
@@ -58,20 +63,10 @@ class Settings(BaseSettings):
         
         return [origin.rstrip("/") for origin in origins] + [self.FRONTEND_HOST]
 
-    @computed_field  # type: ignore[prop-decorator]
     @property
-    def SQLALCHEMY_DATABASE_URI(self) -> PostgresDsn:
-        """Returns the appropriate database URL based on environment"""
-        
-        # Force IPv4 connection to avoid IPv6 issues in Vercel
-        return MultiHostUrl.build(
-            scheme="postgresql+psycopg2",
-            username=self.POSTGRES_USER,
-            password=self.POSTGRES_PASSWORD,
-            host=self.POSTGRES_SERVER,
-            port=self.POSTGRES_PORT,
-            path=self.POSTGRES_DB,
-            query="sslmode=require&connect_timeout=10"
-        )
+    def SQLALCHEMY_DATABASE_URI(self) -> str:
+        """Construct database URI from components using standard psycopg2"""
+        # Using synchronous driver for Python 3.13 compatibility
+        return f"postgresql+psycopg2://{self.POSTGRES_USER}:{self.POSTGRES_PASSWORD}@{self.POSTGRES_SERVER}:5432/{self.POSTGRES_DB}"
 
 settings = Settings() # type: ignore
