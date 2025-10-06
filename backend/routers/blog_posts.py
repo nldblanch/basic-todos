@@ -24,12 +24,18 @@ user_dependency = Annotated[dict, Depends(get_current_user)]
 ### Endpoints ###
 @router.get("/", response_model=list[BlogPostListOut])
 async def get_all_posts(db: db_dependency):
-    return db.query(BlogPosts).filter(BlogPosts.is_published == True).all()
+    return db.query(BlogPosts)\
+        .filter(BlogPosts.is_published == True)\
+        .filter(BlogPosts.country_code == 'UK' or BlogPosts.country_code == 'US')\
+        .all()
   
 
 @router.get("/{post_id}", response_model=BlogPostDetailOut)
 async def get_post(db: db_dependency, post_id: int = Path(gt=0)):
-    blog_post = db.query(BlogPosts).filter(BlogPosts.id == post_id).first()
+    blog_post = db.query(BlogPosts)\
+    .filter(BlogPosts.id == post_id)\
+        .filter(BlogPosts.country_code == 'UK' or BlogPosts.country_code == 'US')\
+        .first()
     if blog_post is None:
         raise HTTPException(status_code=404, detail='Blog post not found.')
     return blog_post

@@ -1,0 +1,25 @@
+INSERT INTO users (
+    email, 
+    username, 
+    hashed_password, 
+    role, 
+    first_name, 
+    last_name, 
+    phone_number, 
+    profile_image, 
+    bio, 
+    location, 
+    website, 
+    joined_at, 
+    last_post_at
+) VALUES
+('janesmith@example.com', 'janesmith', '$2b$12$abcdefghijklmno1', 'user', 'Jane', 'Smith', '555-0102', 'https://i.pravatar.cc/150?img=2', 'Freelance writer and coffee addict. Passionate about storytelling.', 'New York, NY', 'https://janesmith.com', '2024-01-01 09:15:00', '2025-10-02 09:15:00'),
+('mike.johnson@example.com', 'mikej', '$2b$12$abcdefghijklmno2', 'admin', 'Mike', 'Johnson', '555-0103', 'https://i.pravatar.cc/150?img=3', 'Full-stack developer and tech lead. Building the future one line at a time.', 'Austin, TX', 'https://mikejohnson.dev', '2024-01-10 08:00:00', '2025-10-03 16:45:00'),
+('sarah.williams@example.com', 'sarahw', '$2b$12$abcdefghijklmno3', 'user', 'Sarah', 'Williams', '555-0104', 'https://i.pravatar.cc/150?img=4', 'Digital marketer and content creator. Helping brands tell their stories.', 'Seattle, WA', 'https://sarahwilliams.me', '2024-03-05 13:20:00', '2025-10-04 11:00:00'),
+('david.brown@example.com', 'davidb', '$2b$12$abcdefghijklmno4', 'user', 'David', 'Brown', '555-0105', 'https://i.pravatar.cc/150?img=5', 'Software engineer with a passion for clean code and elegant solutions.', 'Boston, MA', 'https://davidbrown.dev', '2024-02-14 09:45:00', '2025-10-05 10:30:00'),
+('emily.davis@example.com', 'emilyd', '$2b$12$abcdefghijklmno5', 'user', 'Emily', 'Davis', '555-0106', 'https://i.pravatar.cc/150?img=6', 'UX designer and creative thinker. Making the web beautiful and intuitive.', 'Portland, OR', 'https://emilydavis.design', '2024-04-01 14:15:00', '2025-09-30 08:20:00'),
+('robert.miller@example.com', 'robertm', '$2b$12$abcdefghijklmno6', 'user', 'Robert', 'Miller', '555-0107', 'https://i.pravatar.cc/150?img=7', 'Data scientist exploring the world through numbers and insights.', 'Chicago, IL', 'https://robertmiller.com', '2024-05-10 10:00:00', '2025-10-06 15:10:00'),
+('lisa.wilson@example.com', 'lisaw', '$2b$12$abcdefghijklmno7', 'user', 'Lisa', 'Wilson', '555-0108', 'https://i.pravatar.cc/150?img=8', 'Community manager and social media guru. Connecting people and ideas.', 'Denver, CO', 'https://lisawilson.net', '2024-06-07 12:45:00', '2025-10-07 12:45:00'),
+('james.moore@example.com', 'jamesm', '$2b$12$abcdefghijklmno8', 'user', 'James', 'Moore', '555-0109', 'https://i.pravatar.cc/150?img=9', 'Product manager with a focus on user experience and growth.', 'Miami, FL', 'https://jamesmoore.com', '2024-07-08 09:30:00', '2025-10-08 09:30:00'),
+('amanda.taylor@example.com', 'amandat', '$2b$12$abcdefghijklmno9', 'user', 'Amanda', 'Taylor', '555-0110', 'https://i.pravatar.cc/150?img=10', 'Photographer and visual storyteller. Capturing moments that matter.', 'Los Angeles, CA', 'https://amandataylor.photo', '2024-08-09 13:20:00', '2025-10-09 13:20:00'),
+('john.doe@example.com', 'johndoe', '$2b$12$abcdefghijklmno0', 'user', 'John', 'Doe', '555-0111', 'https://i.pravatar.cc/150?img=11', 'Enthusiastic blogger and lifelong learner.', 'San Francisco, CA', 'https://johndoe.com', '2024-09-10 11:00:00', '2025-10-10 11:00:00');

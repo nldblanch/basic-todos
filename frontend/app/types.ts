@@ -40,7 +40,7 @@ export interface BlogPostDetail {
     content: string
     category: string
     tags: string
-    read_time: number
+    readTime: number
     img: string
 }
 

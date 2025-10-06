@@ -46,6 +46,7 @@ class BlogPosts(Base):
     tags = Column(String)
     read_time = Column(Integer)
     img = Column(String)
+    country_code = Column(String, default='')
 
     # --- Author & Publication ---
     author = Column(String)

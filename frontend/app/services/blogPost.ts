@@ -10,7 +10,6 @@ export const getBlogPosts = async (): Promise<BlogPostList[]> => {
             throw new Error('Failed to fetch blog posts');
         }
         const res = await response.json();
-        console.log(res, ' <<<< res');
         return res;
     } catch (error) {
         console.error('Error fetching blog posts:', error);

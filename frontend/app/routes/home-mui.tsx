@@ -2,14 +2,15 @@ import type { Route } from "./+types/home";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { usePosts } from "~/hooks/usePosts";
 import { Link as MUILink, Stack, Typography } from "@mui/material";
 import { Link } from "react-router";
-import type { BlogPostDetail } from "~/types";
+import type { BlogPostList } from "~/types";
+import { useBlogPosts } from "~/features/blog/useBlogPosts";
+import { useBlogPost } from "~/features/blog/useBlogPost";
+import { capitalise, getValidImageSrc } from "~/lib/utils";
 
 export function meta({ }: Route.MetaArgs) {
     return [
@@ -19,17 +20,13 @@ export function meta({ }: Route.MetaArgs) {
 }
 
 type ArticleCardProps = {
-    post: BlogPostDetail
+    post: BlogPostList
 }
 
 const ArticleCard = ({ post }: ArticleCardProps) => {
-    const { img, title, content, author, tags } = post
-    const capitalise = (tag: string) => {
-        return tag
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ')
-    }
+    const { img, title, author, tags } = post
+
+    const src = getValidImageSrc(img)
     return (
         <Card sx={{ boxShadow: 'none', padding: 0 }}>
             <Box
@@ -91,7 +88,7 @@ const ArticleCard = ({ post }: ArticleCardProps) => {
                         }
                     }}
                 >
-                    <img src={img} />
+                    <img src={src} />
                 </Box>
             </Box>
         </Card >
@@ -99,14 +96,10 @@ const ArticleCard = ({ post }: ArticleCardProps) => {
 }
 
 export default function HomeMUI() {
-    const { first, rest } = usePosts()
-    const { img, title, content, publishedAt, author, tags, readTime } = first
-    const capitalise = (tag: string) => {
-        return tag
-            .split(' ')
-            .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-            .join(' ')
-    }
+    const [first, ...rest] = useBlogPosts()
+    const detailedPost = useBlogPost(first.id)
+    const { img, title, content, publishedAt, author, tags, readTime } = detailedPost
+
 
     return <Box sx={{
         flexGrow: 1,
@@ -175,7 +168,7 @@ export default function HomeMUI() {
                     />
                 </Box>
                 <Grid container spacing={2} >
-                    {tags.map(tag => {
+                    {tags.split(',').map(tag => {
                         return <>
                             <MUILink component={Link} to={`/blog/${tag}`} underline="hover">
                                 {capitalise(tag)}

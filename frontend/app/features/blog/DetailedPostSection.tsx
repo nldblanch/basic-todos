@@ -1,12 +1,12 @@
 import { Link } from "react-router";
 import { useBlogPost } from "./useBlogPost";
 import { useBlogPosts } from "./useBlogPosts";
+import Button from "~/ui/Button";
 
 function DetailedPostSection() {
     const [first] = useBlogPosts();
     const detailedPost = useBlogPost(first.id);
-    const { img, tags, author, title, content } = detailedPost;
-
+    const { img, tags, author, title, summary } = detailedPost;
     return (
         <section className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
             <img src={img} className="object-cover h-full xl:aspect-video sm:aspect-square aspect-video" />
@@ -29,7 +29,19 @@ function DetailedPostSection() {
                     <p>{author}</p>
                 </div>
                 <h1 className="text-3xl font-serif font-semibold">{title}</h1>
-                <p>{content}</p>
+                <p
+                    className="text-gray-500"
+                    style={{
+                        display: '-webkit-box',
+                        WebkitLineClamp: 5,
+                        WebkitBoxOrient: 'vertical',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                    }}
+                >
+                    {summary}
+                </p>
+                <Button variant="secondary" to={`/blog/${detailedPost.id}`}>Read more</Button>
             </div>
         </section>
     );

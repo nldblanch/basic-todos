@@ -6,11 +6,13 @@ interface BlogPostCardProps {
 }
 function BlogPostCard({ post }: BlogPostCardProps) {
     const { img, tags, author, title } = post
-    return <div className="card-container">
+
+    const src = img.length > 0 ? img : 'https://placehold.net/800x600.png'
+    return <Link to={`/blog/${post.id}`} className="card-container hover:bg-zinc-50 transition-all duration-300">
         <div className="flex items-center justify-center md:hidden">
-            <img src={img} />
+            <img src={src} />
         </div>
-        <div className="space-y-2">
+        <div className="space-y-2 pl-4">
             <div className="flex gap-2 flex-wrap">
                 {tags.split(',').map((tag, i) => (
                     <span key={tag + i} className="flex gap-2 items-center">
@@ -29,9 +31,9 @@ function BlogPostCard({ post }: BlogPostCardProps) {
             <h2 className="text-xl font-serif font-medium">{title}</h2>
         </div>
         <div className="flex items-center justify-center p-4 max-md:hidden">
-            <img src={img} />
+            <img src={src} />
         </div>
-    </div>
+    </Link>
 }
 
 export default BlogPostCard
