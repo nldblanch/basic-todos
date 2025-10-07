@@ -27,15 +27,15 @@ const BURGER_SIZE = 32
 function Header() {
     const [isOpen, setIsOpen] = useState(false)
     const toggle = () => setIsOpen(prev => !prev)
-
+    const additionalStyling = isOpen ? '-translate-x-6' : 'translate-x-6'
     return (
         <header className="header grid grid-rows-2 grid-cols-1 items-center">
             <div className="flex justify-between md:grid md:grid-cols-3 items-center content-container ">
                 <NavLinks />
 
-                <Link to="/" className="w-full">
-                    <h1 className={`text-4xl font-serif max-md:transition-all font-semibold text-center mx-auto max-md:${isOpen ? `-translate-x-[${BURGER_SIZE - 1}px]` : `translate-x-[${BURGER_SIZE - 1}px]`} `}>
-                        News<span className="italic">Today</span>
+                <Link to="/" className="w-full overflow-hidden">
+                    <h1 className={`text-4xl font-serif max-md:transition-all max-md:${additionalStyling} font-semibold text-center mx-auto  `}>
+                        News<span className={`italic ${isOpen ? 'max-[600px]:hidden' : ''}`}>Today</span>
                     </h1>
                 </Link>
 

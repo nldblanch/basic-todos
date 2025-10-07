@@ -1,4 +1,8 @@
-import { createSystem, defaultConfig } from "@chakra-ui/react"
+import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react"
 
-const { globalCss: _, ...restConfig } = defaultConfig
-export const system = createSystem(restConfig)
+
+const config = defineConfig({
+    preflight: false,
+})
+
+export const system = createSystem(defaultConfig, config)

@@ -5,7 +5,7 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { Link as MUILink, Stack, Typography } from "@mui/material";
+import { Link as MUILink, Stack, Typography, type Theme, type SxProps, typographyClasses, Radio, RadioGroup, FormControlLabel } from "@mui/material";
 import { Link } from "react-router";
 import type { BlogPostList } from "~/types";
 import { useBlogPosts } from "~/features/blog/useBlogPosts";
@@ -95,10 +95,11 @@ const ArticleCard = ({ post }: ArticleCardProps) => {
     )
 }
 
+
 export default function HomeMUI() {
     const [first, ...rest] = useBlogPosts()
     const detailedPost = useBlogPost(first.id)
-    const { img, title, content, publishedAt, author, tags, readTime } = detailedPost
+    const { img, title, content, author, tags } = detailedPost
 
 
     return <Box sx={{
@@ -184,12 +185,20 @@ export default function HomeMUI() {
                 }}>
                     {title}
                 </Typography>
-                <Typography variant="body1" component="p" sx={{
-                    fontFamily: '"Inter", "Georgia", "Times New Roman", Times, serif',
-                    fontWeight: 'normal'
-                }}>
+                <Typography variant="body1" component="p"
+
+                    sx={{
+                        fontFamily: '"Inter", "Georgia", "Times New Roman", Times, serif',
+                        fontWeight: 'normal',
+                        overflow: 'hidden',
+                        textOverflow: 'ellipsis',
+                        display: '-webkit-box',
+                        WebkitLineClamp: '5',
+                        WebkitBoxOrient: 'vertical',
+                    }}>
                     {content}
                 </Typography>
+                <Button component={Link} to={`/blog/${detailedPost.id}`}>Read More</Button>
             </Grid>
 
             {/* Side articles */}
@@ -205,6 +214,7 @@ export default function HomeMUI() {
                         p: 4,
                         display: { xs: 'none', lg: 'block' },
                         mb: 4,
+                        mt: 4,
                     }}
                 >
                     <Typography
@@ -239,9 +249,7 @@ export default function HomeMUI() {
                 </Box>
 
                 <Box sx={{ flexGrow: 1 }} display="flex" flexDirection="column" gap={4}>
-
-                    {rest.map(post => {
-
+                    {rest.slice(0, 3).map(post => {
                         return <ArticleCard post={post} />
                     })}
                 </Box>
@@ -308,6 +316,7 @@ export default function HomeMUI() {
                 </Grid>
             </Grid>
         </Grid>
+
     </Box>
 
 }
