@@ -13,14 +13,12 @@
 html,
 body {
   @apply bg-white;
-
   /* @media (prefers-color-scheme: dark) {
     color-scheme: dark;
   } */
 }
 :root {
   --header-height: 9rem;
-  --app-padding: 1rem;
   --page-height: calc(100dvh - var(--header-height) - (2 * var(--app-padding)));
   --banner-yellow: #fbefbf;
 }
@@ -38,11 +36,11 @@ body {
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
-  margin: 0 auto;
-  padding: var(--app-padding);
-  @apply container;
 }
-
+.content-container {
+  @apply container;
+  margin: 0 auto;
+}
 .hero-container {
   display: grid;
   grid-template-columns: 3fr 2fr;

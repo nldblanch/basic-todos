@@ -8,7 +8,7 @@ interface ButtonProps {
 }
 
 const variantClasses = {
-    primary: 'bg-[#198ed7] text-white hover:bg-[#198ed7]/80',
+    primary: 'bg-teal-700 text-white hover:bg-teal-800 transition-all duration-300',
     secondary: 'text-zinc-500 hover:text-zinc-500/80'
 }
 
