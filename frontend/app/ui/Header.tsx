@@ -30,14 +30,14 @@ function Header() {
 
     return (
         <header className="header grid grid-rows-2 grid-cols-1 items-center">
-            <div className="flex justify-between md:grid md:grid-cols-3 items-center content-container">
+            <div className="flex justify-between md:grid md:grid-cols-3 items-center content-container ">
                 <NavLinks />
 
-                <div className="w-full">
+                <Link to="/" className="w-full">
                     <h1 className={`text-4xl font-serif max-md:transition-all font-semibold text-center mx-auto max-md:${isOpen ? `-translate-x-[${BURGER_SIZE - 1}px]` : `translate-x-[${BURGER_SIZE - 1}px]`} `}>
                         News<span className="italic">Today</span>
                     </h1>
-                </div>
+                </Link>
 
                 {/* Desktop buttons */}
                 <div className="max-md:hidden ml-auto flex gap-2">
@@ -74,10 +74,10 @@ function Header() {
                     className="absolute inset-x-0  top-0 h-full bg-teal-700 pointer-events-none"
                 />
                 <ul className="flex gap-4 relative z-10 items-center justify-center content-container text-white">
-
                     {[
                         "Tailwind CSS",
                         "MUI",
+                        "Chakra"
                     ].map(topic => <li key={topic}>
                         <Link to={topic.toLowerCase() === 'tailwind css' ? '/' : `/${topic.toLowerCase()}`} className="hover:underline text-sm text-white">
                             {topic}
