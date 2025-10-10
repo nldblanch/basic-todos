@@ -7,4 +7,5 @@ export default [
     route("about", "routes/about.tsx"),
     route("blog", "routes/blog-list.tsx"),
     route("blog/:id", "routes/blog-detail.tsx"),
+    route("purposeful-errors", "routes/purposeful-errors.tsx")
 ] satisfies RouteConfig;
